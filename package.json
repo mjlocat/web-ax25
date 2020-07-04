@@ -1,0 +1,29 @@
+{
+  "name": "web-ax25",
+  "version": "0.0.1",
+  "description": "Web interface to your AX25 interface on Linux",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mjlocat/web-ax25.git"
+  },
+  "keywords": [
+    "nodejs",
+    "ax25",
+    "linux"
+  ],
+  "author": "Michael Locatelli",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/mjlocat/web-ax25/issues"
+  },
+  "homepage": "https://github.com/mjlocat/web-ax25#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-ws": "^4.0.0"
+  },
+  "devDependencies": {}
+}
