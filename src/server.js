@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const expressWs = require('express-ws');
 const bodyParser = require('body-parser');
@@ -23,6 +24,11 @@ function startServer() {
       ws.on('message', message => {
         ws.send(message);
       });
+    });
+
+    app.use(express.static(path.join(__dirname, '..', 'frontend/build')));
+    app.use((req, res) => {
+      res.sendFile(path.join(__dirname, '..', 'frontend/build/index.html'));
     });
 
     app.listen(port, () => {
