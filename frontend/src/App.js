@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap';
 import { AppContext } from './libs/contextLib';
-import { onError } from './libs/errorLib';
+import { checkExistingSession, destroySession } from './libs/sessionLib';
 import Routes from './Routes';
 import "./App.css";
 import { FlagsProvider } from "./libs/featureFlags";
@@ -19,27 +19,21 @@ function App() {
   }, []);
 
   async function onLoad() {
-    try {
-      // await Auth.currentSession();
-      // userHasAuthenticated(true);
-      // const featureFlags = await API.get('gift-exchange-group', '/features');
+    const validSession = checkExistingSession();
+    if (validSession) {
+      userHasAuthenticated(true);
+      // TODO: set feature flags
+      // const featureFlags = axios.get('/some_url');
       // setFlags(featureFlags);
-      // TODO: This all needs to be replaced with JWT and Axios
-    } catch(e) {
-      if (e !== 'No current user') {
-        onError(e);
-      }
+
     }
     setIsAuthenticating(false);
   }
 
   async function handleLogout() {
-    // await Auth.signOut();
-    // TODO: Replace signout function
+    destroySession();
     setFlags({});
-
     userHasAuthenticated(false);
-
     history.push('/');
   }
 

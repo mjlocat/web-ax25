@@ -6,13 +6,14 @@ import LoaderButton from '../components/LoaderButton';
 import { useAppContext } from '../libs/contextLib';
 import { onError } from '../libs/errorLib';
 import { useFormFields } from '../libs/hooksLib';
+import { createSession } from '../libs/sessionLib';
 import "./Home.css";
 
 export default function Home() {
   const { isAuthenticated, userHasAuthenticated, setFlags } = useAppContext();
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
-  const [fields, handleFieldChange] = useFormFields({
+  const [fields, handleFieldChange, resetFields] = useFormFields({
     username: '',
     password: ''
   });
@@ -31,13 +32,14 @@ export default function Home() {
         username: fields.username,
         password: fields.password
       });
-      console.log(result);
+      createSession(result.data.accessToken);
       setFlags({});
       userHasAuthenticated(true);
-      handleFieldChange({
+      resetFields({
         username: '',
         password: ''
       });
+      setIsLoading(false);
       history.push('/');
     } catch (e) {
       onError(e);

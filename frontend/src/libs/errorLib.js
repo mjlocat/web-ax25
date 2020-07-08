@@ -1,4 +1,5 @@
 export function onError(error) {
+  console.log(error);
   let message = error.toString();
 
   // Auth errors
