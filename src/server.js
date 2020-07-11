@@ -4,6 +4,7 @@ const expressWs = require('express-ws');
 const bodyParser = require('body-parser');
 const config = require('./appconfig');
 const auth = require('./auth');
+const Socket = require('./socket');
 
 function startServer() {
   return new Promise(
@@ -11,6 +12,7 @@ function startServer() {
     const app = express();
     const port = 5000;
     const wss = expressWs(app).getWss();
+    Socket.init(wss);
     app.use(bodyParser.json());
 
     app.post('/login', auth.login);
@@ -19,12 +21,7 @@ function startServer() {
     app.get('/appconfig', auth.verify, (req, res) => config.getConfig(req, res));
     app.post('/appconfig', auth.verify, (req, res) => config.updateConfig(req, res));
 
-    app.ws('/', (ws, req) => {
-      ws.send("hi");
-      ws.on('message', message => {
-        ws.send(message);
-      });
-    });
+    app.ws('/', (ws, res) => Socket.socketRoute(ws, res));
 
     app.use(express.static(path.join(__dirname, '..', 'frontend/build')));
     app.use((req, res) => {
@@ -33,7 +30,7 @@ function startServer() {
 
     app.listen(port, () => {
       console.log(`Listening on port ${port}`);
-      resolve(wss);
+      resolve();
     });
   });
 }

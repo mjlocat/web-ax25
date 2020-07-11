@@ -1,11 +1,10 @@
 const UnixAX25 = require('unix-ax25');
+const Socket = require('./socket');
 
-function startUIListener(wss) {
+function startUIListener() {
   ax25 = new UnixAX25();
   ax25.on('data', packet => {
-    wss.clients.forEach(ws => {
-      ws.send(JSON.stringify(packet));
-    });
+    Socket.broadcastUIPacket(packet);
     console.log(JSON.stringify(packet));
   });
   ax25.startUIListener();
