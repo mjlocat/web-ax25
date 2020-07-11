@@ -40,7 +40,7 @@ export default function Home() {
         password: ''
       });
       setIsLoading(false);
-      if (sessionStorage.getItem('needConfig')) {
+      if (sessionStorage.getItem('needConfig') === 'true') {
         history.push('/config');
       } else {
         history.push('/');

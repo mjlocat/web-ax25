@@ -1,8 +1,6 @@
 const UnixAX25 = require('unix-ax25');
-const { wss } = require('./server');
 
-
-function startUIListener() {
+function startUIListener(wss) {
   ax25 = new UnixAX25();
   ax25.on('data', packet => {
     wss.clients.forEach(ws => {

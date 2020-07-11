@@ -5,13 +5,12 @@ const bodyParser = require('body-parser');
 const config = require('./appconfig');
 const auth = require('./auth');
 
-let wss;
 function startServer() {
   return new Promise(
     (resolve) => {
     const app = express();
     const port = 5000;
-    wss = expressWs(app).getWss();
+    const wss = expressWs(app).getWss();
     app.use(bodyParser.json());
 
     app.post('/login', auth.login);
@@ -34,10 +33,9 @@ function startServer() {
 
     app.listen(port, () => {
       console.log(`Listening on port ${port}`);
-      resolve();
+      resolve(wss);
     });
   });
 }
 
 module.exports = startServer;
-module.exports.wss = wss;
