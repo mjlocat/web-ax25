@@ -53,6 +53,9 @@ function App() {
                   <LinkContainer to="/listen">
                     <Nav.Link>Listen</Nav.Link>
                   </LinkContainer>
+                  <LinkContainer to="/config">
+                    <Nav.Link>Configure</Nav.Link>
+                  </LinkContainer>
                   <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                 </>
               }

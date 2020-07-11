@@ -40,7 +40,11 @@ export default function Home() {
         password: ''
       });
       setIsLoading(false);
-      history.push('/');
+      if (sessionStorage.getItem('needConfig')) {
+        history.push('/config');
+      } else {
+        history.push('/');
+      }
     } catch (e) {
       onError(e);
       setIsLoading(false);
@@ -51,6 +55,10 @@ export default function Home() {
     history.push('/listen');
   }
 
+  function onClickConfig() {
+    history.push('/config');
+  }
+
   return (
     <div className="Home">
       <div className="lander">
@@ -59,6 +67,7 @@ export default function Home() {
         ? <>
             <Button onClick={onClickListen}>Listen</Button>
             &nbsp;
+            <Button onClick={onClickConfig}>Configure</Button>
           </>
         : <>
           <form onSubmit={handleLogin}>

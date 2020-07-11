@@ -5,9 +5,9 @@ const { User } = require('./db');
 
 async function login(req, res) {
   const { username, password } = req.body;
-  const user = await User.findOne({ where: { username }});
+  const user = await User.findOne({ where: { username: username.toUpperCase() }});
   if (user && bcrypt.compareSync(password, user.password)) {
-    const accessToken = jwt.sign({ username, needConfig: config.needConfig }, config.jwtSecret);
+    const accessToken = jwt.sign({ username, realName: user.name || '', needConfig: config.needConfig }, config.jwtSecret);
     res.json({
       accessToken
     });

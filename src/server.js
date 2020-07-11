@@ -17,7 +17,8 @@ function startServer() {
     app.post('/login', auth.login);
     app.delete('/login', auth.logout);
 
-    app.get('/config', auth.verify, (req, res) => config.getConfig(req, res));
+    app.get('/appconfig', auth.verify, (req, res) => config.getConfig(req, res));
+    app.post('/appconfig', auth.verify, (req, res) => config.updateConfig(req, res));
 
     app.ws('/', (ws, req) => {
       ws.send("hi");
