@@ -7,6 +7,7 @@ import { useAppContext } from '../libs/contextLib';
 import { onError } from '../libs/errorLib';
 import { useFormFields } from '../libs/hooksLib';
 import { createSession } from '../libs/sessionLib';
+import socket from '../libs/socketLib';
 import "./Home.css";
 
 export default function Home() {
@@ -39,6 +40,7 @@ export default function Home() {
         username: '',
         password: ''
       });
+      socket.connectSocket();
       setIsLoading(false);
       if (sessionStorage.getItem('needConfig') === 'true') {
         history.push('/config');

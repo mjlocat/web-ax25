@@ -5,3 +5,7 @@
 .App .navbar-brand {
   font-weight: bold;
 }
+
+.App .topnav {
+  background: white;
+}

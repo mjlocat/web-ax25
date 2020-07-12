@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { useAppContext } from './libs/contextLib';
 import Home from "./containers/Home";
 import Config from './containers/Config';
+import Listen from './containers/Listen';
 import NotFound from './containers/NotFound';
 
 export default function Routes() {
@@ -14,8 +15,11 @@ export default function Routes() {
       </Route>
       {isAuthenticated &&
         <>
-          <Route eact path="/config">
+          <Route exact path="/config">
             <Config />
+          </Route>
+          <Route exact path="/listen">
+            <Listen />
           </Route>
         </>
       }
