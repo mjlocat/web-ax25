@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useAppContext } from '../libs/contextLib';
 import Packet from '../components/Packet';
+import UISend from '../components/UISend';
 import "./Listen.css";
 
 export default function Listen() {
@@ -49,7 +50,8 @@ export default function Listen() {
           {packets.map(packet => <Packet packet={packet} />)}
         </table>
       </div>
-      <div ref={bottomRef} />
+      <div ref={bottomRef} className="bottomPad" />
+      <UISend />
     </div>
   );
 }

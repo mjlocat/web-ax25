@@ -22,7 +22,7 @@ export default function Packet({ packet }) {
         <td>From</td>
         <td>{packet.from}</td>
         <td>To</td>
-        <td>{packet.from}</td>
+        <td>{packet.to}</td>
         <td>Via</td>
         <td>{formatVia()}</td>
       </tr>

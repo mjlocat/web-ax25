@@ -11,6 +11,7 @@ import "./Config.css";
 export default function Config() {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
+  const [availableCallsigns, setAvailableCallsigns] = useState([]);
   const [fields, handleFieldChange, resetFields] = useFormFields({
     username: '',
     password: '',
@@ -21,7 +22,7 @@ export default function Config() {
 
   useEffect(() => {
     onLoad();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function onLoad() {
     try {
@@ -33,6 +34,8 @@ export default function Config() {
         callsign: config.data.callsign || '',
         realName: sessionStorage.getItem('realName') || ''
       });
+      const ports = await axios.get('/ports');
+      setAvailableCallsigns(ports.data.map(port => port.portCallsign));
     } catch(e) {
       onError(e);
     }
@@ -126,11 +129,15 @@ export default function Config() {
             />
           </FormGroup>
           <FormGroup controlId="callsign">
-            <FormLabel>Station Callsign</FormLabel>
+            <FormLabel>Default Station Callsign</FormLabel>
             <FormControl
               value={fields.callsign}
               onChange={handleFieldChange}
-            />
+              as="select"
+            >
+              <option></option>
+              {availableCallsigns.map(call => <option>{call}</option>)}
+            </FormControl>
           </FormGroup>
           <FormGroup controlId="realName">
             <FormLabel>Operator Name</FormLabel>

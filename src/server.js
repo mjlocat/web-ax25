@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const config = require('./appconfig');
 const auth = require('./auth');
 const Socket = require('./socket');
+const ax25 = require('./ax25');
 
 function startServer() {
   return new Promise(
@@ -20,6 +21,10 @@ function startServer() {
 
     app.get('/appconfig', auth.verify, (req, res) => config.getConfig(req, res));
     app.post('/appconfig', auth.verify, (req, res) => config.updateConfig(req, res));
+
+    app.get('/ports', auth.verify, ax25.getPorts);
+
+    app.post('/UIPacket', auth.verify, ax25.sendUIPacket);
 
     app.ws('/', (ws, res) => Socket.socketRoute(ws, res));
 
