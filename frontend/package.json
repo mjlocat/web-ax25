@@ -10,7 +10,7 @@
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "flag": "^4.4.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "password-validator": "^5.0.3",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
